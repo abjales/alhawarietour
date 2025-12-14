@@ -63,21 +63,48 @@ export const WhyChooseUsSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.15 }}
-              className="relative group"
+              whileHover={{ y: -8, scale: 1.02 }}
+              className="relative group cursor-pointer"
             >
-              <div className="bg-primary-foreground/5 backdrop-blur-sm rounded-2xl p-8 border border-primary-foreground/10 hover:border-secondary/50 transition-all duration-500 h-full">
+              {/* Glow effect on hover */}
+              <div className="absolute inset-0 rounded-2xl bg-secondary/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              
+              <div className="relative bg-primary-foreground/5 backdrop-blur-sm rounded-2xl p-8 border border-primary-foreground/10 group-hover:border-secondary/50 group-hover:bg-primary-foreground/10 transition-all duration-500 h-full overflow-hidden">
+                {/* Animated background pattern */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500">
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,hsl(var(--secondary))_1px,transparent_1px)] bg-[length:20px_20px]" />
+                </div>
+                
                 <motion.div
-                  whileHover={{ rotate: 5, scale: 1.1 }}
-                  className={`w-14 h-14 rounded-xl ${feature.bgColor} flex items-center justify-center mb-6`}
+                  whileHover={{ rotate: 10, scale: 1.15 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                  className={`relative w-14 h-14 rounded-xl ${feature.bgColor} flex items-center justify-center mb-6 group-hover:shadow-lg group-hover:shadow-secondary/20`}
                 >
-                  <feature.icon className={`h-7 w-7 ${feature.color}`} />
+                  <feature.icon className={`h-7 w-7 ${feature.color} transition-transform duration-300 group-hover:scale-110`} />
                 </motion.div>
-                <h3 className="text-xl font-serif font-semibold text-primary-foreground mb-3">
+                
+                <h3 className="text-xl font-serif font-semibold text-primary-foreground mb-3 group-hover:text-secondary transition-colors duration-300">
                   {feature.title}
                 </h3>
-                <p className="text-primary-foreground/70 leading-relaxed">
+                <p className="text-primary-foreground/70 leading-relaxed group-hover:text-primary-foreground/90 transition-colors duration-300">
                   {feature.description}
                 </p>
+                
+                {/* Learn more indicator */}
+                <motion.div 
+                  className="mt-4 flex items-center gap-2 text-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  initial={{ x: -10 }}
+                  whileHover={{ x: 0 }}
+                >
+                  <span className="text-sm font-medium">Learn more</span>
+                  <motion.span
+                    animate={{ x: [0, 4, 0] }}
+                    transition={{ repeat: Infinity, duration: 1.5 }}
+                  >
+                    →
+                  </motion.span>
+                </motion.div>
               </div>
 
               {/* Decorative line */}
