@@ -113,6 +113,19 @@ export const AIChatAssistant = () => {
     }
   };
 
+  const quickQuestions = [
+    "What Hajj packages do you offer?",
+    "How much does Umrah cost?",
+    "What's included in the package?",
+    "How do I book a pilgrimage?",
+  ];
+
+  const handleQuickQuestion = (question: string) => {
+    setInput(question);
+  };
+
+  const showQuickQuestions = messages.length === 1 && !isLoading;
+
   return (
     <>
       {/* Chat Button */}
@@ -123,7 +136,7 @@ export const AIChatAssistant = () => {
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
             onClick={() => setIsOpen(true)}
-            className="fixed bottom-24 right-6 z-50 w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-lg hover:bg-primary/90 transition-colors flex items-center justify-center"
+            className="fixed bottom-24 right-6 z-50 w-14 h-14 rounded-full bg-gradient-to-br from-primary to-primary/80 text-primary-foreground shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40 transition-all flex items-center justify-center border-2 border-secondary/50"
             aria-label="Open chat assistant"
           >
             <MessageCircle className="w-6 h-6" />
@@ -138,17 +151,17 @@ export const AIChatAssistant = () => {
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="fixed bottom-24 right-6 z-50 w-[360px] h-[500px] bg-background border border-border rounded-2xl shadow-2xl flex flex-col overflow-hidden"
+            className="fixed bottom-24 right-6 z-50 w-[360px] h-[520px] bg-background border border-primary/20 rounded-2xl shadow-2xl flex flex-col overflow-hidden"
           >
             {/* Header */}
-            <div className="bg-primary text-primary-foreground p-4 flex items-center justify-between">
+            <div className="bg-gradient-to-r from-primary to-primary/90 text-primary-foreground p-4 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-primary-foreground/20 flex items-center justify-center">
-                  <Bot className="w-5 h-5" />
+                <div className="w-10 h-10 rounded-full bg-secondary/30 flex items-center justify-center border border-secondary/50">
+                  <Bot className="w-5 h-5 text-secondary" />
                 </div>
                 <div>
-                  <h3 className="font-semibold">ALHAWARIE Assistant</h3>
-                  <p className="text-xs text-primary-foreground/70">Ask about Hajj & Umrah</p>
+                  <h3 className="font-serif font-semibold">ALHAWARIE Assistant</h3>
+                  <p className="text-xs text-primary-foreground/80">Ask about Hajj & Umrah</p>
                 </div>
               </div>
               <button
@@ -169,21 +182,21 @@ export const AIChatAssistant = () => {
                     className={`flex gap-2 ${msg.role === "user" ? "justify-end" : "justify-start"}`}
                   >
                     {msg.role === "assistant" && (
-                      <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 border border-primary/20">
                         <Bot className="w-4 h-4 text-primary" />
                       </div>
                     )}
                     <div
                       className={`max-w-[80%] rounded-2xl px-4 py-2 ${
                         msg.role === "user"
-                          ? "bg-primary text-primary-foreground rounded-br-md"
-                          : "bg-muted text-foreground rounded-bl-md"
+                          ? "bg-gradient-to-br from-primary to-primary/90 text-primary-foreground rounded-br-md"
+                          : "bg-muted text-foreground rounded-bl-md border border-border"
                       }`}
                     >
                       <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
                     </div>
                     {msg.role === "user" && (
-                      <div className="w-8 h-8 rounded-full bg-secondary/20 flex items-center justify-center flex-shrink-0">
+                      <div className="w-8 h-8 rounded-full bg-secondary/20 flex items-center justify-center flex-shrink-0 border border-secondary/30">
                         <User className="w-4 h-4 text-secondary" />
                       </div>
                     )}
@@ -191,33 +204,55 @@ export const AIChatAssistant = () => {
                 ))}
                 {isLoading && messages[messages.length - 1]?.content === "" && (
                   <div className="flex gap-2 justify-start">
-                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 border border-primary/20">
                       <Bot className="w-4 h-4 text-primary" />
                     </div>
-                    <div className="bg-muted rounded-2xl rounded-bl-md px-4 py-3">
-                      <Loader2 className="w-4 h-4 animate-spin text-muted-foreground" />
+                    <div className="bg-muted rounded-2xl rounded-bl-md px-4 py-3 border border-border">
+                      <Loader2 className="w-4 h-4 animate-spin text-primary" />
                     </div>
                   </div>
+                )}
+
+                {/* Quick Questions */}
+                {showQuickQuestions && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="pt-2"
+                  >
+                    <p className="text-xs text-muted-foreground mb-2 font-medium">Quick questions:</p>
+                    <div className="flex flex-wrap gap-2">
+                      {quickQuestions.map((question, i) => (
+                        <button
+                          key={i}
+                          onClick={() => handleQuickQuestion(question)}
+                          className="text-xs px-3 py-1.5 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors border border-primary/20"
+                        >
+                          {question}
+                        </button>
+                      ))}
+                    </div>
+                  </motion.div>
                 )}
               </div>
             </ScrollArea>
 
             {/* Input */}
-            <div className="p-4 border-t border-border">
+            <div className="p-4 border-t border-primary/10 bg-muted/30">
               <div className="flex gap-2">
                 <Input
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder="Ask about our packages..."
-                  className="flex-1"
+                  className="flex-1 border-primary/20 focus-visible:ring-primary/30"
                   disabled={isLoading}
                 />
                 <Button
                   onClick={sendMessage}
                   disabled={!input.trim() || isLoading}
                   size="icon"
-                  className="flex-shrink-0"
+                  className="flex-shrink-0 bg-gradient-to-br from-primary to-primary/90 hover:from-primary/90 hover:to-primary/80"
                 >
                   <Send className="w-4 h-4" />
                 </Button>
