@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
 import { Plane, FileCheck, Building2, Bus } from "lucide-react";
+import serviceTicketing from "@/assets/service-ticketing.jpg";
+import serviceVisa from "@/assets/service-visa.jpg";
+import serviceAccommodation from "@/assets/service-accommodation.jpg";
+import serviceTransport from "@/assets/service-transport.jpg";
 import pilgrimKaaba1 from "@/assets/pilgrim-kaaba-1.jpeg";
-import pilgrimKaaba2 from "@/assets/pilgrim-kaaba-2.jpeg";
-import pilgrimMecca from "@/assets/pilgrim-mecca.jpeg";
-import carouselAccommodation from "@/assets/carousel-accommodation.jpg";
 
 const services = [
   {
@@ -11,28 +12,28 @@ const services = [
     title: "Global Ticketing",
     description:
       "Seamless flight bookings from Ghana to Saudi Arabia with premium carriers. We secure the best routes and prices for your sacred journey.",
-    image: pilgrimMecca,
+    image: serviceTicketing,
   },
   {
     icon: FileCheck,
     title: "Visa Processing",
     description:
       "Complete visa handling with expert guidance through every requirement. Your documents, our responsibility.",
-    image: pilgrimKaaba1,
+    image: serviceVisa,
   },
   {
     icon: Building2,
     title: "Accommodation",
     description:
       "Premium hotels within walking distance of the Holy Sites. Comfort and convenience for restful nights during your pilgrimage.",
-    image: carouselAccommodation,
+    image: serviceAccommodation,
   },
   {
     icon: Bus,
     title: "Ground Transportation",
     description:
       "Reliable, air-conditioned transport between all sacred sites. Travel in comfort with experienced local drivers.",
-    image: pilgrimKaaba2,
+    image: serviceTransport,
   },
 ];
 
