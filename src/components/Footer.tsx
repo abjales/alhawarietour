@@ -111,19 +111,26 @@ export const Footer = () => {
               <li className="flex items-start gap-3">
                 <MapPin className="h-5 w-5 text-secondary flex-shrink-0 mt-0.5" />
                 <span className="text-primary-foreground/70">
-                  123 Independence Avenue
+                  <strong>Mailing Address:</strong>
                   <br />
-                  Accra, Ghana
+                  P.O. Box TN 2073
+                  <br />
+                  Nugua Accra, Ghana
                 </span>
               </li>
-              <li className="flex items-center gap-3">
-                <Phone className="h-5 w-5 text-secondary flex-shrink-0" />
-                <a
-                  href="tel:+233201234567"
-                  className="text-primary-foreground/70 hover:text-secondary transition-colors"
-                >
-                  +233 20 123 4567
-                </a>
+              <li className="flex items-start gap-3">
+                <MapPin className="h-5 w-5 text-secondary flex-shrink-0 mt-0.5" />
+                <span className="text-primary-foreground/70">
+                  <strong>Office Location:</strong>
+                  <br />
+                  9 Calcite St.
+                  <br />
+                  Spintex Com 18
+                  <br />
+                  Block Factory
+                  <br />
+                  Accra - Ghana
+                </span>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="h-5 w-5 text-secondary flex-shrink-0" />

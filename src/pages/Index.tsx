@@ -7,6 +7,7 @@ import { TestimonialsSection } from "@/components/TestimonialsSection";
 import { WhyChooseUsSection } from "@/components/WhyChooseUsSection";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
+import { AIChatAssistant } from "@/components/AIChatAssistant";
 
 const Index = () => {
   return (
@@ -20,6 +21,7 @@ const Index = () => {
       <WhyChooseUsSection />
       <Footer />
       <WhatsAppButton />
+      <AIChatAssistant />
     </main>
   );
 };
