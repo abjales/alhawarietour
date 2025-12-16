@@ -9,6 +9,9 @@ import carouselKaaba from "@/assets/carousel-kaaba.jpg";
 import carouselMedina from "@/assets/carousel-medina.jpg";
 import carouselPilgrims from "@/assets/carousel-pilgrims.jpg";
 import carouselAccommodation from "@/assets/carousel-accommodation.jpg";
+import pilgrimKaaba1 from "@/assets/pilgrim-kaaba-1.jpeg";
+import pilgrimKaaba2 from "@/assets/pilgrim-kaaba-2.jpeg";
+import pilgrimMecca from "@/assets/pilgrim-mecca.jpeg";
 
 const slides = [
   {
@@ -18,22 +21,34 @@ const slides = [
     alt: "Holy Kaaba surrounded by pilgrims during Hajj",
   },
   {
+    image: pilgrimKaaba1,
+    headline: "Your Journey Begins Here",
+    subheadline: "Stand before the Holy Kaaba and fulfill your spiritual calling",
+    alt: "Pilgrim standing before the Holy Kaaba",
+  },
+  {
     image: carouselMedina,
     headline: "Visit Al-Masjid an-Nabawi",
     subheadline: "Walk in the footsteps of the Prophet (PBUH) in the blessed city of Medina",
     alt: "Prophet's Mosque in Medina at sunset",
   },
   {
-    image: carouselPilgrims,
+    image: pilgrimKaaba2,
     headline: "Creating Memories That Last",
     subheadline: "Travel with your loved ones on this life-changing spiritual journey",
-    alt: "Happy Muslim family preparing for pilgrimage",
+    alt: "Pilgrims together at the Holy Kaaba",
   },
   {
     image: carouselAccommodation,
     headline: "Comfort Meets Devotion",
     subheadline: "Stay in premium accommodations just steps away from the Holy Sites",
     alt: "Luxury hotel accommodation near Holy Sites",
+  },
+  {
+    image: pilgrimMecca,
+    headline: "Experience the Holy City",
+    subheadline: "Immerse yourself in the spiritual atmosphere of Mecca",
+    alt: "Pilgrim in the streets of Mecca",
   },
 ];
 
