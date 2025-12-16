@@ -1,14 +1,17 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AudioPlayer } from "@/components/AudioPlayer";
+import { BookingDialog } from "@/components/BookingDialog";
 import heroImage from "@/assets/hero-kaaba.jpg";
 
 export const HeroSection = () => {
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
+
   const scrollToServices = () => {
     document.getElementById("services")?.scrollIntoView({ behavior: "smooth" });
   };
-
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
@@ -69,7 +72,7 @@ export const HeroSection = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 1 }}
         >
-          <Button variant="gold" size="xl" className="group">
+          <Button variant="gold" size="xl" className="group" onClick={() => setIsBookingOpen(true)}>
             <span>Book Your Package</span>
             <motion.span
               className="inline-block ml-1"
@@ -80,6 +83,9 @@ export const HeroSection = () => {
             </motion.span>
           </Button>
         </motion.div>
+
+        {/* Booking Dialog */}
+        <BookingDialog isOpen={isBookingOpen} onClose={() => setIsBookingOpen(false)} />
 
         {/* Scroll Indicator */}
         <motion.button
