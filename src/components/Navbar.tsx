@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Shield } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/hooks/useAuth";
 
 const navLinks = [
   { label: "Home", href: "#" },
@@ -13,6 +15,7 @@ const navLinks = [
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user, isAdmin } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -65,6 +68,30 @@ export const Navbar = () => {
                   {link.label}
                 </a>
               ))}
+              {user && isAdmin && (
+                <Link
+                  to="/admin"
+                  className={`font-medium transition-colors hover:text-secondary flex items-center gap-1 ${
+                    isScrolled
+                      ? "text-foreground/80"
+                      : "text-primary-foreground/80"
+                  }`}
+                >
+                  <Shield className="h-4 w-4" />
+                  Admin
+                </Link>
+              )}
+              {!user && (
+                <Link to="/auth">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className={isScrolled ? "text-foreground" : "text-primary-foreground"}
+                  >
+                    Login
+                  </Button>
+                </Link>
+              )}
               <Button
                 variant={isScrolled ? "default" : "gold"}
                 size="default"
@@ -108,6 +135,25 @@ export const Navbar = () => {
                     {link.label}
                   </a>
                 ))}
+                {user && isAdmin && (
+                  <Link
+                    to="/admin"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-2xl font-serif font-semibold text-foreground hover:text-primary transition-colors flex items-center gap-2"
+                  >
+                    <Shield className="h-5 w-5" />
+                    Admin
+                  </Link>
+                )}
+                {!user && (
+                  <Link
+                    to="/auth"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-2xl font-serif font-semibold text-foreground hover:text-primary transition-colors"
+                  >
+                    Login
+                  </Link>
+                )}
                 <Button variant="gold" size="lg" className="mt-4">
                   Book Now
                 </Button>
