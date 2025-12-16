@@ -3,16 +3,11 @@ import { Check, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BookingDialog } from "@/components/BookingDialog";
 import { useState } from "react";
-import pilgrimKaaba1 from "@/assets/pilgrim-kaaba-1.jpeg";
-import pilgrimKaaba2 from "@/assets/pilgrim-kaaba-2.jpeg";
-import pilgrimMecca from "@/assets/pilgrim-mecca.jpeg";
 
 const packages = [
   {
     name: "Umrah Essential",
-    price: "From $2,500",
     duration: "10 Days",
-    image: pilgrimMecca,
     type: "Umrah",
     features: [
       "Return flights from Ghana",
@@ -25,9 +20,7 @@ const packages = [
   },
   {
     name: "Umrah Premium",
-    price: "From $4,200",
     duration: "14 Days",
-    image: pilgrimKaaba1,
     type: "Umrah",
     features: [
       "Return flights from Ghana",
@@ -41,9 +34,7 @@ const packages = [
   },
   {
     name: "Hajj Complete",
-    price: "From $8,500",
     duration: "21 Days",
-    image: pilgrimKaaba2,
     type: "Hajj",
     features: [
       "Return flights from Ghana",
@@ -126,21 +117,13 @@ export const PackagesSection = () => {
                   Most Popular
                 </div>
               )}
-              <div className="h-48 overflow-hidden">
-                <img
-                  src={pkg.image}
-                  alt={pkg.name}
-                  className="w-full h-full object-cover"
-                />
-              </div>
               <div className="p-6">
-                <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center justify-between mb-4">
                   <h3 className="text-xl font-serif font-semibold text-foreground">
                     {pkg.name}
                   </h3>
                   <span className="text-sm text-muted-foreground">{pkg.duration}</span>
                 </div>
-                <p className="text-2xl font-bold text-primary mb-4">{pkg.price}</p>
                 <ul className="space-y-2 mb-6">
                   {pkg.features.map((feature) => (
                     <li key={feature} className="flex items-center gap-2 text-sm text-muted-foreground">
