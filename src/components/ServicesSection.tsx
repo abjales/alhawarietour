@@ -82,6 +82,26 @@ export const ServicesSection = () => {
           </p>
         </motion.div>
 
+        {/* Featured Video */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-12"
+        >
+          <div className="card-elevated overflow-hidden max-w-4xl mx-auto">
+            <video
+              className="w-full aspect-video object-cover"
+              controls
+              poster={pilgrimKaaba1}
+            >
+              <source src="/videos/services-video.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </motion.div>
+
         <motion.div
           variants={containerVariants}
           initial="hidden"
