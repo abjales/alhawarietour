@@ -1,5 +1,9 @@
 import { motion } from "framer-motion";
 import { Plane, FileCheck, Building2, Bus } from "lucide-react";
+import pilgrimKaaba1 from "@/assets/pilgrim-kaaba-1.jpeg";
+import pilgrimKaaba2 from "@/assets/pilgrim-kaaba-2.jpeg";
+import pilgrimMecca from "@/assets/pilgrim-mecca.jpeg";
+import carouselAccommodation from "@/assets/carousel-accommodation.jpg";
 
 const services = [
   {
@@ -7,24 +11,28 @@ const services = [
     title: "Global Ticketing",
     description:
       "Seamless flight bookings from Ghana to Saudi Arabia with premium carriers. We secure the best routes and prices for your sacred journey.",
+    image: pilgrimMecca,
   },
   {
     icon: FileCheck,
     title: "Visa Processing",
     description:
       "Complete visa handling with expert guidance through every requirement. Your documents, our responsibility.",
+    image: pilgrimKaaba1,
   },
   {
     icon: Building2,
     title: "Accommodation",
     description:
       "Premium hotels within walking distance of the Holy Sites. Comfort and convenience for restful nights during your pilgrimage.",
+    image: carouselAccommodation,
   },
   {
     icon: Bus,
     title: "Ground Transportation",
     description:
       "Reliable, air-conditioned transport between all sacred sites. Travel in comfort with experienced local drivers.",
+    image: pilgrimKaaba2,
   },
 ];
 
@@ -85,22 +93,28 @@ export const ServicesSection = () => {
             <motion.div
               key={service.title}
               variants={cardVariants}
-              className="card-elevated p-8 group cursor-pointer"
+              className="card-elevated overflow-hidden group cursor-pointer"
             >
-              <div className="mb-6 relative">
-                <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center group-hover:bg-primary transition-colors duration-300">
-                  <service.icon className="h-8 w-8 text-primary group-hover:text-primary-foreground transition-colors duration-300" />
-                </div>
-                <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-secondary/80 flex items-center justify-center text-xs font-bold text-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  {index + 1}
-                </div>
+              <div className="h-40 overflow-hidden">
+                <img
+                  src={service.image}
+                  alt={service.title}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
               </div>
-              <h3 className="text-xl font-serif font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
-                {service.title}
-              </h3>
-              <p className="text-muted-foreground leading-relaxed">
-                {service.description}
-              </p>
+              <div className="p-6">
+                <div className="mb-4 relative flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary transition-colors duration-300">
+                    <service.icon className="h-6 w-6 text-primary group-hover:text-primary-foreground transition-colors duration-300" />
+                  </div>
+                  <h3 className="text-lg font-serif font-semibold text-foreground group-hover:text-primary transition-colors">
+                    {service.title}
+                  </h3>
+                </div>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  {service.description}
+                </p>
+              </div>
             </motion.div>
           ))}
         </motion.div>
