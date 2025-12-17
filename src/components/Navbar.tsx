@@ -41,12 +41,20 @@ export const Navbar = () => {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <a href="#" className="flex items-center">
+            <a href="#" className="flex items-center gap-2">
               <img 
                 src={logo} 
                 alt="Alhawarie Tours Logo" 
-                className="h-12 md:h-14 w-auto"
+                className="h-10 md:h-12 w-auto"
               />
+              <span
+                className={`text-lg md:text-xl font-serif font-bold transition-colors ${
+                  isScrolled ? "text-primary" : "text-primary-foreground"
+                }`}
+              >
+                <span className="text-secondary">ALHAWARIE</span>{" "}
+                TOURS
+              </span>
             </a>
 
             {/* Desktop Navigation */}
