@@ -135,11 +135,33 @@ export const Footer = () => {
               <li className="flex items-center gap-3">
                 <Mail className="h-5 w-5 text-secondary flex-shrink-0" />
                 <a
-                  href="mailto:info@alhawarie.com"
+                  href="mailto:Info@alhawariegroup.com"
                   className="text-primary-foreground/70 hover:text-secondary transition-colors"
                 >
-                  info@alhawarie.com
+                  Info@alhawariegroup.com
                 </a>
+              </li>
+              <li className="flex items-start gap-3">
+                <Phone className="h-5 w-5 text-secondary flex-shrink-0 mt-0.5" />
+                <div className="text-primary-foreground/70">
+                  <strong>Ghana:</strong>
+                  <br />
+                  <a href="tel:+233536874057" className="hover:text-secondary transition-colors">
+                    +233 536 874 057
+                  </a>
+                  <span className="text-primary-foreground/50"> (AISHATOU)</span>
+                </div>
+              </li>
+              <li className="flex items-start gap-3">
+                <Phone className="h-5 w-5 text-secondary flex-shrink-0 mt-0.5" />
+                <div className="text-primary-foreground/70">
+                  <strong>Global Support:</strong>
+                  <br />
+                  <a href="tel:+971585441299" className="hover:text-secondary transition-colors">
+                    +971 585 441 299
+                  </a>
+                  <span className="text-primary-foreground/50"> (SALLY)</span>
+                </div>
               </li>
             </ul>
           </motion.div>
