@@ -166,10 +166,10 @@ export const AIChatAssistant = () => {
               </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className="w-10 h-10 rounded-full bg-primary-foreground/10 hover:bg-primary-foreground/30 flex items-center justify-center transition-colors border border-primary-foreground/20"
+                className="w-10 h-10 rounded-full bg-white/90 hover:bg-white flex items-center justify-center transition-colors shadow-md"
                 aria-label="Close chat"
               >
-                <X className="w-5 h-5" />
+                <X className="w-6 h-6 text-primary" />
               </button>
             </div>
 
