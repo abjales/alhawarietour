@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Shield } from "lucide-react";
+import { Menu, X, Shield, Home, Briefcase, Info, Phone, LucideIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
 import logo from "@/assets/logo.jpeg";
 
-const navLinks = [
-  { label: "Home", href: "#" },
-  { label: "Services", href: "#services" },
-  { label: "About", href: "#about" },
-  { label: "Contact", href: "#contact" },
+const navLinks: { label: string; href: string; icon: LucideIcon }[] = [
+  { label: "Home", href: "#", icon: Home },
+  { label: "Services", href: "#services", icon: Briefcase },
+  { label: "About", href: "#about", icon: Info },
+  { label: "Contact", href: "#contact", icon: Phone },
 ];
 
 export const Navbar = () => {
@@ -63,12 +63,13 @@ export const Navbar = () => {
                 <a
                   key={link.label}
                   href={link.href}
-                  className={`font-medium transition-colors hover:text-secondary ${
+                  className={`group font-medium transition-all duration-300 hover:text-secondary flex items-center gap-1.5 ${
                     isScrolled
                       ? "text-foreground/80"
                       : "text-primary-foreground/80"
                   }`}
                 >
+                  <link.icon className="h-4 w-4 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6" />
                   {link.label}
                 </a>
               ))}
@@ -134,8 +135,9 @@ export const Navbar = () => {
                     key={link.label}
                     href={link.href}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="text-2xl font-serif font-semibold text-foreground hover:text-primary transition-colors"
+                    className="group text-2xl font-serif font-semibold text-foreground hover:text-primary transition-all duration-300 flex items-center gap-3"
                   >
+                    <link.icon className="h-6 w-6 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6" />
                     {link.label}
                   </a>
                 ))}
