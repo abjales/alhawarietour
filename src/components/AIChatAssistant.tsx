@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageCircle, X, Send, Bot, User, Loader2 } from "lucide-react";
+import { Sparkles, X, Send, Bot, User, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -139,7 +139,7 @@ export const AIChatAssistant = () => {
             className="fixed bottom-24 right-6 z-50 w-14 h-14 rounded-full bg-gradient-to-br from-primary to-primary/80 text-primary-foreground shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40 transition-all flex items-center justify-center border-2 border-secondary/50"
             aria-label="Open chat assistant"
           >
-            <MessageCircle className="w-6 h-6" />
+            <Sparkles className="w-6 h-6" />
           </motion.button>
         )}
       </AnimatePresence>
@@ -157,7 +157,7 @@ export const AIChatAssistant = () => {
             <div className="bg-gradient-to-r from-primary to-primary/90 text-primary-foreground p-4 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-secondary/30 flex items-center justify-center border border-secondary/50">
-                  <Bot className="w-5 h-5 text-secondary" />
+                  <Sparkles className="w-5 h-5 text-secondary" />
                 </div>
                 <div>
                   <h3 className="font-serif font-semibold">ALHAWARIE Assistant</h3>
@@ -166,7 +166,7 @@ export const AIChatAssistant = () => {
               </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className="w-8 h-8 rounded-full hover:bg-primary-foreground/20 flex items-center justify-center transition-colors"
+                className="w-10 h-10 rounded-full bg-primary-foreground/10 hover:bg-primary-foreground/30 flex items-center justify-center transition-colors border border-primary-foreground/20"
                 aria-label="Close chat"
               >
                 <X className="w-5 h-5" />
