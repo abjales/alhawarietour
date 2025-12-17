@@ -4,6 +4,7 @@ import { Menu, X, Shield } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
+import logo from "@/assets/logo.jpeg";
 
 const navLinks = [
   { label: "Home", href: "#" },
@@ -40,17 +41,12 @@ export const Navbar = () => {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <a href="#" className="flex items-center gap-2">
-              <span
-                className={`text-xl md:text-2xl font-serif font-bold transition-colors ${
-                  isScrolled ? "text-primary" : "text-primary-foreground"
-                }`}
-              >
-                <span className={isScrolled ? "text-secondary" : "text-secondary"}>
-                  ALHAWARIE
-                </span>{" "}
-                TOURS
-              </span>
+            <a href="#" className="flex items-center">
+              <img 
+                src={logo} 
+                alt="Alhawarie Tours Logo" 
+                className="h-12 md:h-14 w-auto"
+              />
             </a>
 
             {/* Desktop Navigation */}
