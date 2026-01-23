@@ -53,6 +53,60 @@ export type Database = {
         }
         Relationships: []
       }
+      packages: {
+        Row: {
+          active: boolean | null
+          created_at: string
+          duration: string
+          features: string[]
+          id: string
+          madina_days: number | null
+          makkah_days: number | null
+          name: string
+          payment_details: Json | null
+          popular: boolean | null
+          price_ghs: number | null
+          price_usd: number | null
+          slug: string
+          travel_date: string | null
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean | null
+          created_at?: string
+          duration: string
+          features?: string[]
+          id?: string
+          madina_days?: number | null
+          makkah_days?: number | null
+          name: string
+          payment_details?: Json | null
+          popular?: boolean | null
+          price_ghs?: number | null
+          price_usd?: number | null
+          slug: string
+          travel_date?: string | null
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean | null
+          created_at?: string
+          duration?: string
+          features?: string[]
+          id?: string
+          madina_days?: number | null
+          makkah_days?: number | null
+          name?: string
+          payment_details?: Json | null
+          popular?: boolean | null
+          price_ghs?: number | null
+          price_usd?: number | null
+          slug?: string
+          travel_date?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
