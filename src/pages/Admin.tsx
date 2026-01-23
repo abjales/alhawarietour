@@ -13,6 +13,7 @@ import {
   Loader2,
   ArrowLeft,
   Trash2,
+  Package,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -31,9 +32,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { PackagesManager } from "@/components/admin/PackagesManager";
 
 interface Booking {
   id: string;
@@ -189,7 +192,7 @@ const Admin = () => {
             <div>
               <h1 className="text-xl font-serif font-bold">Admin Dashboard</h1>
               <p className="text-sm text-primary-foreground/70">
-                Manage booking requests
+                Manage bookings and packages
               </p>
             </div>
           </div>
@@ -205,140 +208,165 @@ const Admin = () => {
         </div>
       </header>
 
-      {/* Stats */}
       <div className="container mx-auto p-6">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-          {[
-            { label: "Total Bookings", value: bookings.length, icon: Calendar },
-            {
-              label: "Pending",
-              value: bookings.filter((b) => b.status === "pending").length,
-              icon: Clock,
-            },
-            {
-              label: "Confirmed",
-              value: bookings.filter((b) => b.status === "confirmed").length,
-              icon: CheckCircle,
-            },
-            {
-              label: "Total Pilgrims",
-              value: bookings.reduce((acc, b) => acc + b.number_of_pilgrims, 0),
-              icon: Users,
-            },
-          ].map((stat, i) => (
+        <Tabs defaultValue="bookings" className="space-y-6">
+          <TabsList>
+            <TabsTrigger value="bookings" className="gap-2">
+              <Calendar className="h-4 w-4" />
+              Bookings
+            </TabsTrigger>
+            <TabsTrigger value="packages" className="gap-2">
+              <Package className="h-4 w-4" />
+              Packages
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="bookings">
+            {/* Stats */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+              {[
+                { label: "Total Bookings", value: bookings.length, icon: Calendar },
+                {
+                  label: "Pending",
+                  value: bookings.filter((b) => b.status === "pending").length,
+                  icon: Clock,
+                },
+                {
+                  label: "Confirmed",
+                  value: bookings.filter((b) => b.status === "confirmed").length,
+                  icon: CheckCircle,
+                },
+                {
+                  label: "Total Pilgrims",
+                  value: bookings.reduce((acc, b) => acc + b.number_of_pilgrims, 0),
+                  icon: Users,
+                },
+              ].map((stat, i) => (
+                <motion.div
+                  key={stat.label}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                  className="bg-card rounded-xl p-4 border border-border"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 bg-emerald/10 rounded-lg">
+                      <stat.icon className="h-5 w-5 text-emerald" />
+                    </div>
+                    <div>
+                      <p className="text-sm text-muted-foreground">{stat.label}</p>
+                      <p className="text-2xl font-bold">{stat.value}</p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Bookings Table */}
             <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1 }}
-              className="bg-card rounded-xl p-4 border border-border"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3 }}
+              className="bg-card rounded-xl border border-border overflow-hidden"
             >
-              <div className="flex items-center gap-3">
-                <div className="p-2 bg-emerald/10 rounded-lg">
-                  <stat.icon className="h-5 w-5 text-emerald" />
-                </div>
-                <div>
-                  <p className="text-sm text-muted-foreground">{stat.label}</p>
-                  <p className="text-2xl font-bold">{stat.value}</p>
-                </div>
+              <div className="p-4 border-b border-border">
+                <h2 className="text-lg font-semibold">Booking Requests</h2>
               </div>
+
+              {isLoading ? (
+                <div className="p-8 text-center">
+                  <Loader2 className="h-8 w-8 animate-spin mx-auto text-emerald" />
+                </div>
+              ) : bookings.length === 0 ? (
+                <div className="p-8 text-center text-muted-foreground">
+                  No booking requests yet
+                </div>
+              ) : (
+                <div className="overflow-x-auto">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Name</TableHead>
+                        <TableHead>Contact</TableHead>
+                        <TableHead>Package</TableHead>
+                        <TableHead>Travel Date</TableHead>
+                        <TableHead>Pilgrims</TableHead>
+                        <TableHead>Status</TableHead>
+                        <TableHead>Actions</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {bookings.map((booking) => (
+                        <TableRow key={booking.id}>
+                          <TableCell className="font-medium">
+                            {booking.full_name}
+                          </TableCell>
+                          <TableCell>
+                            <div className="space-y-1">
+                              <div className="flex items-center gap-1 text-sm">
+                                <Mail className="h-3 w-3" />
+                                {booking.email}
+                              </div>
+                              <div className="flex items-center gap-1 text-sm text-muted-foreground">
+                                <Phone className="h-3 w-3" />
+                                {booking.phone}
+                              </div>
+                            </div>
+                          </TableCell>
+                          <TableCell>{formatPackageType(booking.package_type)}</TableCell>
+                          <TableCell>
+                            {booking.travel_date
+                              ? new Date(booking.travel_date).toLocaleDateString()
+                              : "Not specified"}
+                          </TableCell>
+                          <TableCell>{booking.number_of_pilgrims}</TableCell>
+                          <TableCell>{getStatusBadge(booking.status)}</TableCell>
+                          <TableCell>
+                            <div className="flex items-center gap-2">
+                              <Select
+                                value={booking.status}
+                                onValueChange={(value) =>
+                                  updateStatus(booking.id, value)
+                                }
+                              >
+                                <SelectTrigger className="w-28 h-8">
+                                  <SelectValue />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectItem value="pending">Pending</SelectItem>
+                                  <SelectItem value="confirmed">Confirmed</SelectItem>
+                                  <SelectItem value="cancelled">Cancelled</SelectItem>
+                                </SelectContent>
+                              </Select>
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                className="h-8 w-8 text-destructive hover:text-destructive"
+                                onClick={() => deleteBooking(booking.id)}
+                              >
+                                <Trash2 className="h-4 w-4" />
+                              </Button>
+                            </div>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+              )}
             </motion.div>
-          ))}
-        </div>
+          </TabsContent>
 
-        {/* Bookings Table */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
-          className="bg-card rounded-xl border border-border overflow-hidden"
-        >
-          <div className="p-4 border-b border-border">
-            <h2 className="text-lg font-semibold">Booking Requests</h2>
-          </div>
-
-          {isLoading ? (
-            <div className="p-8 text-center">
-              <Loader2 className="h-8 w-8 animate-spin mx-auto text-emerald" />
-            </div>
-          ) : bookings.length === 0 ? (
-            <div className="p-8 text-center text-muted-foreground">
-              No booking requests yet
-            </div>
-          ) : (
-            <div className="overflow-x-auto">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Name</TableHead>
-                    <TableHead>Contact</TableHead>
-                    <TableHead>Package</TableHead>
-                    <TableHead>Travel Date</TableHead>
-                    <TableHead>Pilgrims</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {bookings.map((booking) => (
-                    <TableRow key={booking.id}>
-                      <TableCell className="font-medium">
-                        {booking.full_name}
-                      </TableCell>
-                      <TableCell>
-                        <div className="space-y-1">
-                          <div className="flex items-center gap-1 text-sm">
-                            <Mail className="h-3 w-3" />
-                            {booking.email}
-                          </div>
-                          <div className="flex items-center gap-1 text-sm text-muted-foreground">
-                            <Phone className="h-3 w-3" />
-                            {booking.phone}
-                          </div>
-                        </div>
-                      </TableCell>
-                      <TableCell>{formatPackageType(booking.package_type)}</TableCell>
-                      <TableCell>
-                        {booking.travel_date
-                          ? new Date(booking.travel_date).toLocaleDateString()
-                          : "Not specified"}
-                      </TableCell>
-                      <TableCell>{booking.number_of_pilgrims}</TableCell>
-                      <TableCell>{getStatusBadge(booking.status)}</TableCell>
-                      <TableCell>
-                        <div className="flex items-center gap-2">
-                          <Select
-                            value={booking.status}
-                            onValueChange={(value) =>
-                              updateStatus(booking.id, value)
-                            }
-                          >
-                            <SelectTrigger className="w-28 h-8">
-                              <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="pending">Pending</SelectItem>
-                              <SelectItem value="confirmed">Confirmed</SelectItem>
-                              <SelectItem value="cancelled">Cancelled</SelectItem>
-                            </SelectContent>
-                          </Select>
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            className="h-8 w-8 text-destructive hover:text-destructive"
-                            onClick={() => deleteBooking(booking.id)}
-                          >
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </div>
-          )}
-        </motion.div>
+          <TabsContent value="packages">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="bg-card rounded-xl border border-border p-6"
+            >
+              <PackagesManager />
+            </motion.div>
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );
