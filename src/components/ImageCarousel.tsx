@@ -1,10 +1,11 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useMemo } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useSiteMedia } from "@/hooks/useSiteMedia";
 
-// Import images
+// Fallback static images
 import carouselKaaba from "@/assets/carousel-kaaba.jpg";
 import carouselMedina from "@/assets/carousel-medina.jpg";
 import carouselPilgrims from "@/assets/carousel-pilgrims.jpg";
@@ -13,7 +14,7 @@ import pilgrimKaaba1 from "@/assets/pilgrim-kaaba-1.jpeg";
 import pilgrimKaaba2 from "@/assets/pilgrim-kaaba-2.jpeg";
 import pilgrimMecca from "@/assets/pilgrim-mecca.jpeg";
 
-const slides = [
+const fallbackSlides = [
   {
     image: carouselKaaba,
     headline: "Experience the Sacred Journey",
@@ -53,6 +54,21 @@ const slides = [
 ];
 
 const ImageCarousel = () => {
+  const { media: dynamicMedia, isLoading } = useSiteMedia("carousel");
+
+  // Use dynamic media if available, otherwise fall back to static slides
+  const slides = useMemo(() => {
+    if (dynamicMedia.length > 0) {
+      return dynamicMedia.map((item) => ({
+        image: item.url,
+        headline: item.headline || "Experience the Sacred Journey",
+        subheadline: item.subheadline || "Join thousands of pilgrims in the holy rituals of Hajj and Umrah",
+        alt: item.alt_text || item.name,
+      }));
+    }
+    return fallbackSlides;
+  }, [dynamicMedia]);
+
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [
     Autoplay({ delay: 4000, stopOnInteraction: false, stopOnMouseEnter: true }),
   ]);

@@ -107,6 +107,51 @@ export type Database = {
         }
         Relationships: []
       }
+      site_media: {
+        Row: {
+          active: boolean | null
+          alt_text: string | null
+          created_at: string
+          display_order: number | null
+          headline: string | null
+          id: string
+          media_type: string
+          name: string
+          purpose: string
+          subheadline: string | null
+          updated_at: string
+          url: string
+        }
+        Insert: {
+          active?: boolean | null
+          alt_text?: string | null
+          created_at?: string
+          display_order?: number | null
+          headline?: string | null
+          id?: string
+          media_type: string
+          name: string
+          purpose: string
+          subheadline?: string | null
+          updated_at?: string
+          url: string
+        }
+        Update: {
+          active?: boolean | null
+          alt_text?: string | null
+          created_at?: string
+          display_order?: number | null
+          headline?: string | null
+          id?: string
+          media_type?: string
+          name?: string
+          purpose?: string
+          subheadline?: string | null
+          updated_at?: string
+          url?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string

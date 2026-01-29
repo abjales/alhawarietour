@@ -14,6 +14,7 @@ import {
   ArrowLeft,
   Trash2,
   Package,
+  Image as ImageIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -37,6 +38,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { PackagesManager } from "@/components/admin/PackagesManager";
+import { MediaManager } from "@/components/admin/MediaManager";
 
 interface Booking {
   id: string;
@@ -219,6 +221,10 @@ const Admin = () => {
               <Package className="h-4 w-4" />
               Packages
             </TabsTrigger>
+            <TabsTrigger value="media" className="gap-2">
+              <ImageIcon className="h-4 w-4" />
+              Media
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="bookings">
@@ -364,6 +370,16 @@ const Admin = () => {
               className="bg-card rounded-xl border border-border p-6"
             >
               <PackagesManager />
+            </motion.div>
+          </TabsContent>
+
+          <TabsContent value="media">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="bg-card rounded-xl border border-border p-6"
+            >
+              <MediaManager />
             </motion.div>
           </TabsContent>
         </Tabs>
