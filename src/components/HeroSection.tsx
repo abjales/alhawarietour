@@ -4,10 +4,14 @@ import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AudioPlayer } from "@/components/AudioPlayer";
 import { BookingDialog } from "@/components/BookingDialog";
-import heroImage from "@/assets/hero-kaaba.jpg";
+import { useSingleMedia } from "@/hooks/useSiteMedia";
+import heroImageFallback from "@/assets/hero-kaaba.jpg";
 
 export const HeroSection = () => {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
+  const { media: heroMedia } = useSingleMedia("hero");
+
+  const heroImage = heroMedia?.url || heroImageFallback;
 
   const scrollToServices = () => {
     document.getElementById("services")?.scrollIntoView({ behavior: "smooth" });

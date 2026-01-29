@@ -1,41 +1,13 @@
 import { motion } from "framer-motion";
 import { Plane, FileCheck, Building2, Bus } from "lucide-react";
-import serviceTicketing from "@/assets/service-ticketing.jpg";
-import serviceVisa from "@/assets/service-visa.jpg";
-import serviceAccommodation from "@/assets/service-accommodation.jpg";
-import serviceTransport from "@/assets/service-transport.jpg";
-import pilgrimKaaba1 from "@/assets/pilgrim-kaaba-1.jpeg";
+import { useSiteMedia, useSingleMedia } from "@/hooks/useSiteMedia";
 
-const services = [
-  {
-    icon: Plane,
-    title: "Global Ticketing",
-    description:
-      "Seamless flight bookings from Ghana to Saudi Arabia with premium carriers. We secure the best routes and prices for your sacred journey.",
-    image: serviceTicketing,
-  },
-  {
-    icon: FileCheck,
-    title: "Visa Processing",
-    description:
-      "Complete visa handling with expert guidance through every requirement. Your documents, our responsibility.",
-    image: serviceVisa,
-  },
-  {
-    icon: Building2,
-    title: "Accommodation",
-    description:
-      "Premium hotels within walking distance of the Holy Sites. Comfort and convenience for restful nights during your pilgrimage.",
-    image: serviceAccommodation,
-  },
-  {
-    icon: Bus,
-    title: "Ground Transportation",
-    description:
-      "Reliable, air-conditioned transport between all sacred sites. Travel in comfort with experienced local drivers.",
-    image: serviceTransport,
-  },
-];
+// Fallback images
+import serviceTicketingFallback from "@/assets/service-ticketing.jpg";
+import serviceVisaFallback from "@/assets/service-visa.jpg";
+import serviceAccommodationFallback from "@/assets/service-accommodation.jpg";
+import serviceTransportFallback from "@/assets/service-transport.jpg";
+import pilgrimKaaba1 from "@/assets/pilgrim-kaaba-1.jpeg";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -60,6 +32,44 @@ const cardVariants = {
 };
 
 export const ServicesSection = () => {
+  // Fetch dynamic media for services
+  const { media: ticketingMedia } = useSingleMedia("service-ticketing");
+  const { media: visaMedia } = useSingleMedia("service-visa");
+  const { media: accommodationMedia } = useSingleMedia("service-accommodation");
+  const { media: transportMedia } = useSingleMedia("service-transport");
+  const { media: servicesVideo } = useSingleMedia("services-video");
+
+  const services = [
+    {
+      icon: Plane,
+      title: "Global Ticketing",
+      description:
+        "Seamless flight bookings from Ghana to Saudi Arabia with premium carriers. We secure the best routes and prices for your sacred journey.",
+      image: ticketingMedia?.url || serviceTicketingFallback,
+    },
+    {
+      icon: FileCheck,
+      title: "Visa Processing",
+      description:
+        "Complete visa handling with expert guidance through every requirement. Your documents, our responsibility.",
+      image: visaMedia?.url || serviceVisaFallback,
+    },
+    {
+      icon: Building2,
+      title: "Accommodation",
+      description:
+        "Premium hotels within walking distance of the Holy Sites. Comfort and convenience for restful nights during your pilgrimage.",
+      image: accommodationMedia?.url || serviceAccommodationFallback,
+    },
+    {
+      icon: Bus,
+      title: "Ground Transportation",
+      description:
+        "Reliable, air-conditioned transport between all sacred sites. Travel in comfort with experienced local drivers.",
+      image: transportMedia?.url || serviceTransportFallback,
+    },
+  ];
+
   return (
     <section id="services" className="py-24 bg-background islamic-pattern">
       <div className="container mx-auto px-4">
@@ -97,7 +107,10 @@ export const ServicesSection = () => {
               controls
               poster={pilgrimKaaba1}
             >
-              <source src="/videos/services-video.mp4" type="video/mp4" />
+              <source 
+                src={servicesVideo?.url || "/videos/services-video.mp4"} 
+                type="video/mp4" 
+              />
               Your browser does not support the video tag.
             </video>
           </div>
