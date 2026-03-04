@@ -4,6 +4,7 @@ import { Menu, X, Shield, Home, Briefcase, Info, Phone, LucideIcon } from "lucid
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
+import { BookingDialog } from "@/components/BookingDialog";
 import logo from "@/assets/logo.jpeg";
 
 const navLinks: { label: string; href: string; icon: LucideIcon }[] = [
@@ -16,6 +17,7 @@ const navLinks: { label: string; href: string; icon: LucideIcon }[] = [
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
   const { user, isAdmin } = useAuth();
 
   useEffect(() => {
@@ -100,6 +102,7 @@ export const Navbar = () => {
               <Button
                 variant={isScrolled ? "default" : "gold"}
                 size="default"
+                onClick={() => setIsBookingOpen(true)}
               >
                 Book Now
               </Button>
@@ -160,7 +163,7 @@ export const Navbar = () => {
                     Login
                   </Link>
                 )}
-                <Button variant="gold" size="lg" className="mt-4">
+                <Button variant="gold" size="lg" className="mt-4" onClick={() => { setIsBookingOpen(true); setIsMobileMenuOpen(false); }}>
                   Book Now
                 </Button>
               </div>
@@ -168,6 +171,8 @@ export const Navbar = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <BookingDialog isOpen={isBookingOpen} onClose={() => setIsBookingOpen(false)} />
     </>
   );
 };
